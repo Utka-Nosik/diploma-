@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ArtEX - Web Version</title>
+    <style>
+        /* Временные стили прямо здесь */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; text-align: center; }
+        .profile-card { background: white; padding: 20px; border-radius: 10px; max-width: 300px; margin: 50px auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .btn { background-color: #6c5ce7; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <h2 id="username">Загрузка...</h2>
+        <p id="email">Подождите...</p>
+        <button class="btn" onclick="loadUserData()">Загрузить профиль</button>
+    </div>
+
+    <script>
+        // Временная логика фронтенда прямо здесь
+        async function loadUserData() {
+            try {
+                // Запрос к нашему единственному файлу бэкенда
+                const response = await fetch('http://localhost:3000/api/user/mikudasu');
+                const data = await response.json();
+                
+                document.getElementById('username').innerText = data.username;
+                document.getElementById('email').innerText = data.email;
+            } catch (error) {
+                console.error("Ошибка связи с сервером", error);
+            }
+        }
+    </script>
+</body>
+</html>
