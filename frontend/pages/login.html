@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f5ed">
+    <title>Вход — ArtEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body>
+    <main class="auth-layout">
+        <section class="auth-story">
+            <a class="auth-wordmark" href="../index.html">art<span>ex</span><i></i></a>
+            <div class="story-copy"><p class="eyebrow">ТВОЯ СЦЕНА. ТВОИ ЛЮДИ.</p><h1>Искусство<br>не должно<br>быть <em>в тишине.</em></h1><p class="story-caption">Показывай, что создаёшь. Находи тех, кто чувствует так же.</p></div>
+            <div class="story-photo"><img src="https://images.unsplash.com/photo-1460661419201-fd4ce913f8a7?auto=format&fit=crop&w=1100&q=85" alt="Художник работает над полотном в студии"><span>Творчество начинается с тебя <b>✳</b></span></div>
+            <p class="auth-copyright">© ARTEX 2026 <span>ПРОСТРАНСТВО ДЛЯ ИСКУССТВА</span></p>
+        </section>
+        <section class="auth-form-side">
+            <a class="back-link" href="../index.html">← <span>На главную</span></a>
+            <div class="auth-form-wrap"><p class="eyebrow">СНОВА ЗДЕСЬ?</p><h2>Войти в ArtEX</h2><p class="form-intro">Продолжай делиться тем, что создаёшь.</p>
+                <form id="login-form">
+                    <label for="email">Электронная почта</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                    <div class="password-label"><label for="password">Пароль</label><a href="#demo-note">Забыли пароль?</a></div><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Не менее 4 символов" minlength="4" required>
+                    <p class="form-error" id="form-error" role="alert" hidden>Проверь почту и введи пароль длиной от 4 символов.</p>
+                    <button class="submit-button" type="submit">Войти <span>↗</span></button>
+                </form>
+                <div class="form-divider"><span></span>или<span></span></div>
+                <a class="guest-button" href="../index.html">Продолжить без входа <span>→</span></a>
+                <p class="signup-line">Впервые здесь? <a href="#demo-note" id="signup-link">Создать аккаунт</a></p>
+                <p class="demo-note" id="demo-note">Демо-режим: подойдут любые почта и пароль. Данные не отправляются на сервер.</p>
+            </div>
+            <div class="auth-bottom"><a href="#demo-note">Конфиденциальность</a><a href="#demo-note">Помощь</a></div>
+        </section>
+    </main>
+    <script src="../js/auth.js"></script>
+</body>
+</html>

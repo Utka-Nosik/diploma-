@@ -2,35 +2,66 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>ArtEX - Web Version</title>
-    <style>
-        /* Временные стили прямо здесь */
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; text-align: center; }
-        .profile-card { background: white; padding: 20px; border-radius: 10px; max-width: 300px; margin: 50px auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .btn { background-color: #6c5ce7; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f8f5">
+    <title>ArtEX — пространство для искусства</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div class="profile-card">
-        <h2 id="username">Загрузка...</h2>
-        <p id="email">Подождите...</p>
-        <button class="btn" onclick="loadUserData()">Загрузить profile</button>
-    </div>
+    <header class="topbar">
+        <a class="wordmark" href="index.html" aria-label="ArtEX — главная">art<span>ex</span><i></i></a>
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="feed-search" type="search" placeholder="Искать художников и работы" aria-label="Поиск по ленте"></label>
+        <div class="top-actions"><a class="icon-link" href="pages/profile.html" aria-label="Уведомления">♧<b></b></a><a class="avatar avatar-small avatar-self" href="pages/profile.html" aria-label="Мой профиль">М</a></div>
+    </header>
 
-    <script>
-        // Временная логика фронтенда прямо здесь
-        async function loadUserData() {
-            try {
-                // Запрос к нашему единственному файлу бэкенда
-                const response = await fetch('http://localhost:3000/api/user/mikudasu');
-                const data = await response.json();
-                
-                document.getElementById('username').innerText = data.username;
-                document.getElementById('email').innerText = data.email;
-            } catch (error) {
-                console.error("Ошибка связи с сервером", error);
-            }
-        }
-    </script>
+    <div class="app-shell">
+        <aside class="left-sidebar">
+            <div class="sidebar-label">ТВОЁ ПРОСТРАНСТВО</div>
+            <nav class="side-nav" aria-label="Основная навигация">
+                <a class="side-link active" href="index.html"><span>⌂</span>Лента</a>
+                <a class="side-link" href="#discover"><span>◉</span>Открытия</a>
+                <a class="side-link" href="pages/profile.html"><span>▧</span>Моя страница</a>
+                <a class="side-link" href="pages/login.html"><span>↗</span>Войти в аккаунт</a>
+            </nav>
+            <div class="sidebar-rule"></div>
+            <div class="sidebar-label">ТВОИ ИНТЕРЕСЫ</div>
+            <div class="topic-list"><a href="#discover"><span class="topic-dot coral"></span>Иллюстрация</a><a href="#discover"><span class="topic-dot blue"></span>Фотография</a><a href="#discover"><span class="topic-dot lime"></span>Цифровое искусство</a></div>
+            <div class="sidebar-note"><span class="note-mark">✳</span><p>Место, где искусство находит своих.</p><a href="pages/login.html">Присоединиться <span>↗</span></a></div>
+        </aside>
+
+        <main class="feed-column">
+            <section class="feed-heading"><div><p class="eyebrow">ЧЕТВЕРГ, 22 ОКТЯБРЯ</p><h1>Твоя лента<span>.</span></h1></div><button class="filter-button" type="button" aria-label="Настроить ленту">☷ <span>Для тебя</span></button></section>
+            <section class="composer" aria-label="Создать публикацию"><a class="avatar avatar-self" href="pages/profile.html">М</a><a class="composer-prompt" href="pages/login.html">Что вдохновляет тебя сегодня?</a><a class="composer-add" href="pages/login.html" aria-label="Добавить публикацию">＋</a></section>
+
+            <article class="post" data-search="анна волкова тишина акварель иллюстрация">
+                <header class="post-header"><a class="avatar avatar-anna" href="pages/profile.html">А</a><div class="post-author"><a href="pages/profile.html">Анна Волкова</a><span>@annavolkova · 2 ч</span></div><button class="more-button" aria-label="Ещё">···</button></header>
+                <p class="post-copy">Иногда самые важные истории звучат почти неслышно. Собрала эту серию из моментов между делом — света на стене, ветки за окном и долгого воскресного утра. <a href="#discover">#иллюстрация</a> <a href="#discover">#акварель</a></p>
+                <img class="post-art" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=85" alt="Художественная мастерская с яркими красками и кистями">
+                <footer class="post-footer"><button class="reaction-button" type="button" aria-pressed="false"><span class="heart">♡</span><span class="like-count">128</span></button><button class="post-action" type="button" aria-label="Комментарии">▱ <span>18</span></button><button class="post-action save-button" type="button" aria-label="Сохранить публикацию" aria-pressed="false">⌑</button><span class="post-credit">Работа дня <b>✳</b></span></footer>
+            </article>
+
+            <article class="post post-compact" data-search="марко ривера формы скульптура дизайн">
+                <header class="post-header"><a class="avatar avatar-marco" href="pages/profile.html">М</a><div class="post-author"><a href="pages/profile.html">Марко Ривера</a><span>@marco.r · 5 ч</span></div><button class="more-button" aria-label="Ещё">···</button></header>
+                <p class="post-copy">Играю с формой и тенью. Небольшой эксперимент из мастерской этого утра. <a href="#discover">#объект</a></p>
+                <img class="post-art post-art-second" src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=1200&q=85" alt="Современная живопись в галерее">
+                <footer class="post-footer"><button class="reaction-button" type="button" aria-pressed="false"><span class="heart">♡</span><span class="like-count">64</span></button><button class="post-action" type="button" aria-label="Комментарии">▱ <span>7</span></button><button class="post-action save-button" type="button" aria-label="Сохранить публикацию" aria-pressed="false">⌑</button><span class="post-credit">В мастерской <b>✳</b></span></footer>
+            </article>
+            <p class="empty-search" hidden>Ничего не нашлось. Попробуй другой запрос.</p>
+        </main>
+
+        <aside class="right-sidebar" id="discover">
+            <section class="discover-panel"><div class="section-heading"><h2>Авторы недели</h2><a href="pages/profile.html">Все <span>↗</span></a></div>
+                <div class="artist-row"><span class="avatar avatar-lee">Л</span><div class="artist-info"><a href="pages/profile.html">Лея Соколова</a><span>Керамика · Москва</span></div><a class="follow-button" href="pages/login.html" aria-label="Подписаться на Лею">＋</a></div>
+                <div class="artist-row"><span class="avatar avatar-dan">Д</span><div class="artist-info"><a href="pages/profile.html">Данил Чернов</a><span>Фотография · Казань</span></div><a class="follow-button" href="pages/login.html" aria-label="Подписаться на Данила">＋</a></div>
+                <div class="artist-row"><span class="avatar avatar-sofia">С</span><div class="artist-info"><a href="pages/profile.html">София Ким</a><span>Графика · Алматы</span></div><a class="follow-button" href="pages/login.html" aria-label="Подписаться на Софию">＋</a></div>
+            </section>
+            <section class="event-panel"><p class="eyebrow">СОБЫТИЕ · 28 ОКТ</p><h2>Город как<br>мастерская</h2><p>Открытая встреча художников и тех, кто ищет вдохновение в повседневном.</p><a href="pages/login.html">Участвовать <span>↗</span></a><span class="event-spark">✳</span></section>
+            <footer class="side-footer"><a href="#discover">О проекте</a><a href="#discover">Правила</a><span>© ARTEX 2026</span></footer>
+        </aside>
+    </div>
+    <script src="js/main.js"></script>
 </body>
 </html>

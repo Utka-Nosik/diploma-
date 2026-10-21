@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f8f5">
+    <title>Моя страница — ArtEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+    <header class="profile-topbar"><a class="wordmark" href="../index.html">art<span>ex</span><i></i></a><nav><a href="../index.html">Лента</a><a href="login.html">Войти</a></nav><a class="header-avatar" href="#account">М</a></header>
+    <main class="profile-page">
+        <div class="profile-cover"><img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1800&q=85" alt="Палитра красок и художественная мастерская"><span class="cover-label">ПРОСТРАНСТВО ДЛЯ ИСКУССТВА <b>✳</b></span></div>
+        <section class="profile-intro" id="account">
+            <div class="profile-identity"><div class="profile-avatar" id="profile-avatar">М</div><div class="profile-title"><p class="eyebrow">ХУДОЖНИК · УЧАСТНИК ARTEX</p><h1 id="profile-name">Мария Волкова</h1><p class="profile-handle" id="profile-handle">@maria.volkova · Санкт-Петербург</p></div></div>
+            <div class="profile-buttons"><button class="edit-button" id="edit-profile" type="button">Изменить профиль <span>↗</span></button><a class="share-button" href="../index.html" aria-label="Вернуться в ленту">↗</a></div>
+        </section>
+        <section class="profile-content">
+            <div class="profile-main-column">
+                <div class="profile-tabs"><a class="tab-active" href="#artworks">Работы <span>12</span></a><a href="#about">О себе</a><a href="#artworks">Подборки <span>3</span></a></div>
+                <div class="works-heading" id="artworks"><div><p class="eyebrow">ИЗБРАННОЕ</p><h2>Работы <span>и эксперименты</span></h2></div><button class="view-toggle" type="button" aria-label="Вид сеткой">▦</button></div>
+                <div class="art-grid">
+                    <article class="artwork"><img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=750&q=85" alt="Современная живопись с абстрактными цветными формами"><div class="artwork-caption"><span>Тёплый воздух</span><span>2026</span></div></article>
+                    <article class="artwork"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=750&q=85" alt="Картина в спокойных тонах в галерее"><div class="artwork-caption"><span>Где начинается свет</span><span>2026</span></div></article>
+                    <article class="artwork"><img src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=750&q=85" alt="Абстрактная картина с насыщенными оттенками"><div class="artwork-caption"><span>Без названия № 4</span><span>2025</span></div></article>
+                    <article class="artwork"><img src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=750&q=85" alt="Абстрактная живопись в оттенках синего"><div class="artwork-caption"><span>Тихое движение</span><span>2025</span></div></article>
+                    <article class="artwork"><img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?auto=format&fit=crop&w=750&q=85" alt="Картина и холсты художника в мастерской"><div class="artwork-caption"><span>Комната для идей</span><span>2025</span></div></article>
+                    <article class="artwork"><img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?auto=format&fit=crop&w=750&q=85" alt="Яркое абстрактное искусство"><div class="artwork-caption"><span>Цвет, который помню</span><span>2024</span></div></article>
+                </div>
+            </div>
+            <aside class="profile-details" id="about"><p class="eyebrow">НЕМНОГО ОБО МНЕ</p><p class="bio-text" id="profile-bio">Исследую цвет, память и привычные вещи. Работаю с живописью, иллюстрацией и тем, что случайно нашлось в мастерской.</p><button class="bio-edit" type="button" id="edit-bio">✎ <span>Редактировать описание</span></button><div class="detail-rule"></div><div class="stat-row"><div><strong>12</strong><span>работ</span></div><div><strong>348</strong><span>подписчиков</span></div><div><strong>216</strong><span>подписок</span></div></div><div class="detail-rule"></div><div class="detail-item"><span>⌖</span> Санкт-Петербург</div><div class="detail-item"><span>◷</span> На ArtEX с октября 2024</div><a class="login-nudge" href="login.html"><span>↗</span><span>Демо-режим: войди, чтобы настроить страницу</span></a></aside>
+        </section>
+    </main>
+    <dialog class="edit-dialog" id="edit-dialog"><form method="dialog" id="profile-form"><div class="dialog-heading"><h2>Изменить профиль</h2><button class="dialog-close" value="cancel" aria-label="Закрыть">×</button></div><label for="edit-name">Имя</label><input id="edit-name" name="name" maxlength="40" required><label for="edit-bio-input">О себе</label><textarea id="edit-bio-input" name="bio" maxlength="180" rows="4"></textarea><div class="dialog-actions"><button class="cancel-button" value="cancel">Отмена</button><button class="save-button" id="save-profile" value="default">Сохранить</button></div></form></dialog>
+    <script src="../js/profile.js"></script>
+</body>
+</html>

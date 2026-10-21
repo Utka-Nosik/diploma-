@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const app = express();
 
 app.use(cors()); // Разрешаем фронтенду общаться с бэкендом
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 // Временная "база данных" (позже это будет Firebase)
 const users = {
