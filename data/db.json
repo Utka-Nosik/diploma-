@@ -141,14 +141,14 @@
       "clientName": "Bakdaulet_Client",
       "price": 45000,
       "currency": "KZT",
-      "status": "in_progress",
+      "status": "completed",
       "escrowValidator": {
-        "isHeld": true,
+        "isHeld": false,
         "heldAmount": 45000,
         "platformFee": 2250,
-        "heldAt": "2026-10-21T11:00:00Z",
-        "releasedAt": null,
-        "validationNote": "Payment safely held by ArtEX Escrow Validator. Funds protected until client confirms final delivery."
+        "heldAt": "2026-10-22T17:08:47.821Z",
+        "releasedAt": "2026-10-22T17:08:50.979Z",
+        "validationNote": "Funds released to artist upon verified client approval."
       },
       "deadline": "2026-11-05",
       "createdAt": "2026-10-20T10:00:00Z",
@@ -177,6 +177,61 @@
           "status": "in_progress",
           "timestamp": "2026-10-21T11:05:00Z",
           "note": "Work started by Mikudasu"
+        },
+        {
+          "status": "disputed",
+          "timestamp": "2026-10-22T17:08:34.863Z",
+          "note": "Статус обновлен в панели валидатора: disputed"
+        },
+        {
+          "status": "completed",
+          "timestamp": "2026-10-22T17:08:35.661Z",
+          "note": "Статус обновлен в панели валидатора: completed"
+        },
+        {
+          "status": "in_progress",
+          "timestamp": "2026-10-22T17:08:39.767Z",
+          "note": "Статус обновлен в панели валидатора: in_progress"
+        },
+        {
+          "status": "delivered",
+          "timestamp": "2026-10-22T17:08:40.589Z",
+          "note": "Статус обновлен в панели валидатора: delivered"
+        },
+        {
+          "status": "payment_held",
+          "timestamp": "2026-10-22T17:08:41.308Z",
+          "note": "Статус обновлен в панели валидатора: payment_held"
+        },
+        {
+          "status": "completed",
+          "timestamp": "2026-10-22T17:08:43.461Z",
+          "note": "Статус обновлен в панели валидатора: completed"
+        },
+        {
+          "status": "disputed",
+          "timestamp": "2026-10-22T17:08:44.413Z",
+          "note": "Статус обновлен в панели валидатора: disputed"
+        },
+        {
+          "status": "payment_held",
+          "timestamp": "2026-10-22T17:08:47.821Z",
+          "note": "Статус обновлен в панели валидатора: payment_held"
+        },
+        {
+          "status": "in_progress",
+          "timestamp": "2026-10-22T17:08:48.815Z",
+          "note": "Статус обновлен в панели валидатора: in_progress"
+        },
+        {
+          "status": "delivered",
+          "timestamp": "2026-10-22T17:08:49.907Z",
+          "note": "Статус обновлен в панели валидатора: delivered"
+        },
+        {
+          "status": "completed",
+          "timestamp": "2026-10-22T17:08:50.979Z",
+          "note": "Статус обновлен в панели валидатора: completed"
         }
       ]
     }
@@ -210,6 +265,91 @@
           "senderName": "ArtEX Validator",
           "text": "🛡️ [System]: Escrow deposit of 45,000 KZT secured. Artist notified to start work.",
           "timestamp": "2026-10-21T11:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "chat_comm_101",
+      "participants": [
+        "system"
+      ],
+      "messages": [
+        {
+          "id": "msg_1792688914863",
+          "timestamp": "2026-10-22T17:08:34.864Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "⚠️ Dispute raised. An ArtEX moderator has been alerted to review files and chat log."
+        },
+        {
+          "id": "msg_1792688915661",
+          "timestamp": "2026-10-22T17:08:35.661Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "🎉 Client confirmed delivery! Funds released to the artist. Deal completed safely."
+        },
+        {
+          "id": "msg_1792688919768",
+          "timestamp": "2026-10-22T17:08:39.768Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "Artist marked status as 'In Progress'."
+        },
+        {
+          "id": "msg_1792688920590",
+          "timestamp": "2026-10-22T17:08:40.590Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "Artist submitted work for client review."
+        },
+        {
+          "id": "msg_1792688921309",
+          "timestamp": "2026-10-22T17:08:41.309Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "🛡️ Payment secured in ArtEX Escrow Validator! Funds are safe; artist can start working."
+        },
+        {
+          "id": "msg_1792688923462",
+          "timestamp": "2026-10-22T17:08:43.462Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "🎉 Client confirmed delivery! Funds released to the artist. Deal completed safely."
+        },
+        {
+          "id": "msg_1792688924413",
+          "timestamp": "2026-10-22T17:08:44.413Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "⚠️ Dispute raised. An ArtEX moderator has been alerted to review files and chat log."
+        },
+        {
+          "id": "msg_1792688927822",
+          "timestamp": "2026-10-22T17:08:47.822Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "🛡️ Payment secured in ArtEX Escrow Validator! Funds are safe; artist can start working."
+        },
+        {
+          "id": "msg_1792688928816",
+          "timestamp": "2026-10-22T17:08:48.816Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "Artist marked status as 'In Progress'."
+        },
+        {
+          "id": "msg_1792688929908",
+          "timestamp": "2026-10-22T17:08:49.908Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "Artist submitted work for client review."
+        },
+        {
+          "id": "msg_1792688930980",
+          "timestamp": "2026-10-22T17:08:50.980Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "🎉 Client confirmed delivery! Funds released to the artist. Deal completed safely."
         }
       ]
     }
