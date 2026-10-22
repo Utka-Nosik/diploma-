@@ -1,0 +1,10 @@
+/* ArtEX Auth Form Styles */
+.auth-box {
+  max-width: 420px;
+  margin: 60px auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+}

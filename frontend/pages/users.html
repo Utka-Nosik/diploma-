@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtEX — Каталог авторов и заказчиков</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .user-card {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .user-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-light);
+      margin-bottom: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    .user-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+    .user-role-badge {
+      margin-bottom: 12px;
+    }
+    .user-location {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .user-bio {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .user-stats-row {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 18px;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-value {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text-main);
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .user-actions {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+    }
+    .user-actions .btn {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/index.html" class="brand">
+        🎨 ArtEX
+        <span class="brand-badge">Kazakhstan</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/index.html">🖼️ Галерея</a></li>
+          <li><a href="/pages/users.html" class="active">👥 Художники</a></li>
+          <li><a href="/pages/chats.html">🛡️ Сделки и Чаты</a></li>
+          <li><a href="/pages/profile.html?id=u_mikudasu">👤 Мой Профиль</a></li>
+        </ul>
+      </nav>
+      <div class="user-pill">
+        <span class="user-dot"></span>
+        <span>Mikudasu (Artist)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="hero" style="background: linear-gradient(135deg, #4834d4 0%, #686de0 100%);">
+      <div class="hero-text">
+        <div class="hero-badge">👥 Сообщество ArtEX</div>
+        <h1>Художники и Заказчики Казахстана</h1>
+        <p>Находите проверенных иллюстраторов, концепт-художников и коллекционеров. Все сделки между ними защищены через депозитный валидатор.</p>
+      </div>
+    </div>
+
+    <!-- Filters & Search -->
+    <div class="filter-bar">
+      <div class="filter-pills" id="role-pills">
+        <button class="filter-pill active" onclick="filterRole('')">Все пользователи</button>
+        <button class="filter-pill" onclick="filterRole('artist')">Только Художники</button>
+        <button class="filter-pill" onclick="filterRole('client')">Заказчики</button>
+        <button class="filter-pill" onclick="filterRole('moderator')">Модераторы</button>
+      </div>
+      <input type="text" id="user-search" class="search-input" placeholder="🔍 Поиск по имени или городу..." oninput="searchUsers(this.value)">
+    </div>
+
+    <!-- Users Grid -->
+    <div id="users-grid" class="cards-grid">
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">
+        Загрузка пользователей ArtEX...
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>ArtEX Kazakhstan — Safe Artist-Client Commission Exchange • Дипломный проект</p>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script>
+    let allUsers = [];
+    let selectedRole = '';
+
+    async function loadUsers() {
+      try {
+        allUsers = await ArtEX_API.users.getAll();
+        renderUsers(allUsers);
+      } catch (err) {
+        document.getElementById('users-grid').innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; color: var(--danger); padding: 30px;">
+            Ошибка загрузки пользователей. Убедитесь, что сервер запущен.
+          </div>
+        `;
+      }
+    }
+
+    function renderUsers(list) {
+      const container = document.getElementById('users-grid');
+      if (list.length === 0) {
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">Пользователи не найдены</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(user => {
+        const isArtist = user.role === 'artist';
+        const roleLabel = isArtist ? 'Художник' : (user.role === 'moderator' ? 'Модератор' : 'Заказчик');
+        const roleClass = isArtist ? 'badge-open' : (user.role === 'moderator' ? 'badge-disputed' : 'badge-held');
+
+        return `
+          <div class="card user-card">
+            <img src="${user.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80'}" alt="${user.username}" class="user-avatar">
+            <h3 class="user-name">${user.username}</h3>
+            <span class="badge ${roleClass} user-role-badge">${roleLabel}</span>
+            <div class="user-location">📍 ${user.location || 'Казахстан'}</div>
+            <p class="user-bio">${user.bio || 'Участник платформы ArtEX.'}</p>
+
+            ${isArtist ? `
+              <div class="user-stats-row">
+                <div class="stat-item">
+                  <span class="stat-value">⭐ ${user.stats ? user.stats.rating : '5.0'}</span>
+                  <span class="stat-label">Рейтинг</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-value">🎨 ${user.stats ? user.stats.completedCommissions : 0}</span>
+                  <span class="stat-label">Сделок</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-value">${user.commissionStatus === 'open' ? '🟢 Open' : '🔴 Closed'}</span>
+                  <span class="stat-label">Заказы</span>
+                </div>
+              </div>
+            ` : `
+              <div class="user-stats-row">
+                <div class="stat-item">
+                  <span class="stat-value">📦 ${user.stats ? user.stats.orderedCommissions || 0 : 0}</span>
+                  <span class="stat-label">Заказов</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-value">🛡️ 100%</span>
+                  <span class="stat-label">Надёжность</span>
+                </div>
+              </div>
+            `}
+
+            <div class="user-actions">
+              <a href="/pages/profile.html?id=${user.id}" class="btn btn-secondary btn-sm">Профиль</a>
+              ${isArtist ? `<a href="/pages/chats.html?artistId=${user.id}" class="btn btn-sm">Заказать</a>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterRole(role) {
+      selectedRole = role;
+      document.querySelectorAll('#role-pills .filter-pill').forEach(btn => {
+        btn.classList.toggle('active', 
+          (role === '' && btn.innerText === 'Все пользователи') ||
+          (role === 'artist' && btn.innerText.includes('Художники')) ||
+          (role === 'client' && btn.innerText.includes('Заказчики')) ||
+          (role === 'moderator' && btn.innerText.includes('Модераторы'))
+        );
+      });
+      applyUserFilters();
+    }
+
+    function searchUsers(query) {
+      applyUserFilters(query);
+    }
+
+    function applyUserFilters(searchQuery = document.getElementById('user-search').value) {
+      let filtered = allUsers;
+      if (selectedRole) {
+        filtered = filtered.filter(u => u.role.toLowerCase() === selectedRole.toLowerCase());
+      }
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(u => 
+          u.username.toLowerCase().includes(q) || 
+          (u.bio && u.bio.toLowerCase().includes(q)) ||
+          (u.location && u.location.toLowerCase().includes(q))
+        );
+      }
+      renderUsers(filtered);
+    }
+
+    loadUsers();
+  </script>
+</body>
+</html>

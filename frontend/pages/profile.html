@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtEX — Профиль пользователя</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .profile-banner {
+      height: 180px;
+      background: linear-gradient(135deg, #6c5ce7 0%, #fd79a8 100%);
+      border-radius: var(--radius) var(--radius) 0 0;
+      position: relative;
+    }
+    .profile-card-main {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+    .profile-header-content {
+      padding: 0 32px 28px;
+      position: relative;
+    }
+    .profile-avatar-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: -55px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .profile-large-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 4px solid var(--surface);
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .profile-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .profile-username {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .profile-meta {
+      display: flex;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }
+    .profile-bio-text {
+      font-size: 1rem;
+      color: var(--text-main);
+      line-height: 1.6;
+      max-width: 750px;
+      margin-bottom: 20px;
+    }
+    .profile-stats-bar {
+      display: flex;
+      gap: 28px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      flex-wrap: wrap;
+    }
+    .p-stat {
+      display: flex;
+      flex-direction: column;
+    }
+    .p-stat-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .p-stat-lbl {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Tabs */
+    .profile-tabs {
+      display: flex;
+      gap: 12px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .tab-btn {
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: var(--transition);
+    }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Pricing Table */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 16px;
+    }
+    .price-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .price-tier-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .price-amount {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .price-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/index.html" class="brand">
+        🎨 ArtEX
+        <span class="brand-badge">Kazakhstan</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/index.html">🖼️ Галерея</a></li>
+          <li><a href="/pages/users.html">👥 Художники</a></li>
+          <li><a href="/pages/chats.html">🛡️ Сделки и Чаты</a></li>
+          <li><a href="/pages/profile.html?id=u_mikudasu" class="active">👤 Мой Профиль</a></li>
+        </ul>
+      </nav>
+      <div class="user-pill">
+        <span class="user-dot"></span>
+        <span id="nav-username">Mikudasu (Artist)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="profile-card-main">
+      <div class="profile-banner"></div>
+      <div class="profile-header-content">
+        <div class="profile-avatar-row">
+          <img id="p-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Avatar" class="profile-large-avatar">
+          <div style="display: flex; gap: 10px;">
+            <a id="btn-commission" href="/pages/chats.html" class="btn">🛡️ Заказать через Escrow</a>
+          </div>
+        </div>
+
+        <div class="profile-title-row">
+          <h1 id="p-username" class="profile-username">Загрузка...</h1>
+          <span id="p-role-badge" class="badge badge-open">Художник</span>
+          <span id="p-status-badge" class="badge badge-held">● Open for Commissions</span>
+        </div>
+
+        <div class="profile-meta">
+          <span id="p-location">📍 Казахстан</span>
+          <span id="p-joined">📅 На платформе с мая 2026</span>
+          <span id="p-email">✉️ ...</span>
+        </div>
+
+        <p id="p-bio" class="profile-bio-text">...</p>
+
+        <div class="profile-stats-bar">
+          <div class="p-stat">
+            <span id="p-stat-rating" class="p-stat-val">⭐ 4.95</span>
+            <span class="p-stat-lbl">Рейтинг клиентов</span>
+          </div>
+          <div class="p-stat">
+            <span id="p-stat-comms" class="p-stat-val">28</span>
+            <span class="p-stat-lbl">Завершённых сделок</span>
+          </div>
+          <div class="p-stat">
+            <span id="p-stat-active" class="p-stat-val">2</span>
+            <span class="p-stat-lbl">Активных в работе</span>
+          </div>
+          <div class="p-stat">
+            <span class="p-stat-val">100%</span>
+            <span class="p-stat-lbl">Гарантия выплаты</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Tabs -->
+    <div class="profile-tabs">
+      <button class="tab-btn active" onclick="switchTab('portfolio', this)">🖼️ Портфолио автора</button>
+      <button class="tab-btn" onclick="switchTab('pricing', this)">💰 Прайс-лист на заказы</button>
+      <button class="tab-btn" onclick="switchTab('escrow', this)">🛡️ Защита сделки ArtEX</button>
+    </div>
+
+    <!-- Tab 1: Portfolio -->
+    <div id="tab-portfolio" class="cards-grid">
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">
+        Загрузка работ автора...
+      </div>
+    </div>
+
+    <!-- Tab 2: Pricing Tiers -->
+    <div id="tab-pricing" class="pricing-grid" style="display: none;">
+      <div class="price-card">
+        <h3 class="price-tier-name">Быстрый скетч</h3>
+        <div id="price-sketch" class="price-amount">15,000 ₸</div>
+        <p class="price-desc">Концепт персонажа, лайн-арт, базовая заливка цветом. Срок 2-3 дня.</p>
+        <a href="/pages/chats.html" class="btn btn-secondary btn-sm" style="width: 100%;">Выбрать скетч</a>
+      </div>
+      <div class="price-card" style="border-color: var(--primary);">
+        <span class="badge badge-held" style="margin-bottom: 8px;">Популярный выбор</span>
+        <h3 class="price-tier-name">Half-Body (По пояс)</h3>
+        <div id="price-half" class="price-amount">35,000 ₸</div>
+        <p class="price-desc">Детализированный персонаж с тенями, светом и простым фоном. Срок 5-7 дней.</p>
+        <a href="/pages/chats.html" class="btn btn-sm" style="width: 100%;">Выбрать Half-Body</a>
+      </div>
+      <div class="price-card">
+        <h3 class="price-tier-name">Полная иллюстрация</h3>
+        <div id="price-full" class="price-amount">65,000 ₸</div>
+        <p class="price-desc">Высокая детализация персонажа + полный проработанный фон + коммерческая лицензия. Срок 10-14 дней.</p>
+        <a href="/pages/chats.html" class="btn btn-secondary btn-sm" style="width: 100%;">Выбрать Full Art</a>
+      </div>
+    </div>
+
+    <!-- Tab 3: Escrow Explanation -->
+    <div id="tab-escrow" class="card" style="display: none; padding: 32px; line-height: 1.6;">
+      <h2 style="margin-bottom: 14px; color: var(--primary);">🛡️ Как работает защита сделок ArtEX Escrow</h2>
+      <p style="margin-bottom: 14px;">Платформа ArtEX устраняет риск невыплаты для художника и риск обмана для заказчика:</p>
+      <ol style="padding-left: 20px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
+        <li><strong>Заказчик открывает сделку</strong> и вносит депозит (например, 45,000 ₸).</li>
+        <li><strong>Система ArtEX замораживает средства</strong> на нейтральном эскроу-счёте. Художник видит статус <em>«Оплата заморожена»</em> и спокойно приступает к работе.</li>
+        <li><strong>Художник сдаёт превью/результат</strong> через специальную форму платформы.</li>
+        <li><strong>Заказчик проверяет и утверждает работу:</strong> средства автоматически переводятся художнику. Если возникли разногласия — модератор проверяет переписку и решает спор.</li>
+      </ol>
+      <a href="/pages/chats.html" class="btn">Перейти к моим сделкам</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>ArtEX Kazakhstan — Safe Artist-Client Commission Exchange • Дипломный проект</p>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id') || 'u_mikudasu';
+
+    async function loadProfile() {
+      try {
+        const user = await ArtEX_API.users.getById(userId);
+
+        document.getElementById('p-username').innerText = user.username;
+        document.getElementById('p-avatar').src = user.avatar || document.getElementById('p-avatar').src;
+        document.getElementById('p-location').innerText = `📍 ${user.location || 'Казахстан'}`;
+        document.getElementById('p-joined').innerText = `📅 На платформе с ${user.joined || '2026'}`;
+        document.getElementById('p-email').innerText = `✉️ ${user.email}`;
+        document.getElementById('p-bio').innerText = user.bio || 'Участник платформы ArtEX.';
+        document.getElementById('btn-commission').href = `/pages/chats.html?artistId=${user.id}`;
+
+        if (user.stats) {
+          document.getElementById('p-stat-rating').innerText = `⭐ ${user.stats.rating || '5.0'}`;
+          document.getElementById('p-stat-comms').innerText = user.stats.completedCommissions || 0;
+          document.getElementById('p-stat-active').innerText = user.stats.activeOrders || 0;
+        }
+
+        if (user.pricing) {
+          if (user.pricing.sketch) document.getElementById('price-sketch').innerText = `${user.pricing.sketch.toLocaleString()} ₸`;
+          if (user.pricing.halfBody) document.getElementById('price-half').innerText = `${user.pricing.halfBody.toLocaleString()} ₸`;
+          if (user.pricing.fullIllustration) document.getElementById('price-full').innerText = `${user.pricing.fullIllustration.toLocaleString()} ₸`;
+        }
+
+        renderPortfolio(user.artworks || []);
+      } catch (err) {
+        console.error('Error loading profile:', err);
+      }
+    }
+
+    function renderPortfolio(artworks) {
+      const container = document.getElementById('tab-portfolio');
+      if (artworks.length === 0) {
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">Художник пока не загрузил работы.</div>`;
+        return;
+      }
+
+      container.innerHTML = artworks.map(art => `
+        <div class="card">
+          <img src="${art.imageUrl}" alt="${art.title}" style="width: 100%; height: 220px; object-fit: cover;">
+          <div style="padding: 16px;">
+            <h4 style="margin-bottom: 4px;">${art.title}</h4>
+            <span class="badge badge-held" style="margin-bottom: 8px;">${art.category}</span>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">${art.description}</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 10px;">
+              <strong style="font-size: 1.05rem;">${Number(art.price).toLocaleString()} ₸</strong>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">❤️ ${art.likesCount || 0}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function switchTab(tabName, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.getElementById('tab-portfolio').style.display = tabName === 'portfolio' ? 'grid' : 'none';
+      document.getElementById('tab-pricing').style.display = tabName === 'pricing' ? 'grid' : 'none';
+      document.getElementById('tab-escrow').style.display = tabName === 'escrow' ? 'block' : 'none';
+    }
+
+    loadProfile();
+  </script>
+</body>
+</html>

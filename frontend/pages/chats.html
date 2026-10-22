@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtEX — Сделки и Чаты (Escrow Validator)</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    .chats-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      height: calc(100vh - 170px);
+      min-height: 600px;
+    }
+
+    /* Left Sidebar */
+    .chats-sidebar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .sidebar-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .deals-list {
+      flex: 1;
+      overflow-y: auto;
+      list-style: none;
+    }
+    .deal-item {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .deal-item:hover,
+    .deal-item.active {
+      background: var(--primary-light);
+    }
+    .deal-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .deal-item-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+    .deal-item-price {
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: var(--primary);
+    }
+    .deal-item-participants {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Right Main Chat & Contract Pane */
+    .chat-pane {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    /* Contract Header & Stepper */
+    .contract-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      background: #fafafa;
+    }
+    .contract-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .contract-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    /* Visual Escrow Stepper */
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 10px;
+      padding: 0 10px;
+    }
+    .stepper::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 20px;
+      right: 20px;
+      height: 3px;
+      background: var(--border);
+      z-index: 1;
+    }
+    .step-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+      z-index: 2;
+    }
+    .step-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .step-node.completed .step-circle {
+      background: var(--success);
+      border-color: var(--success);
+      color: white;
+    }
+    .step-node.active .step-circle {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      box-shadow: 0 0 0 4px var(--primary-light);
+    }
+    .step-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .step-node.active .step-label {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Actions Bar */
+    .actions-bar {
+      padding: 10px 24px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .actions-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+
+    /* Message Stream */
+    .messages-stream {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: #fafafc;
+    }
+    .msg {
+      max-width: 75%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .msg-client {
+      align-self: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+    .msg-artist {
+      align-self: flex-end;
+      background: var(--primary);
+      color: white;
+    }
+    .msg-system {
+      align-self: center;
+      max-width: 85%;
+      background: #f1f2f6;
+      border: 1px dashed var(--info);
+      color: var(--text-main);
+      text-align: center;
+      font-size: 0.85rem;
+      border-radius: 20px;
+      padding: 8px 20px;
+    }
+    .msg-author {
+      font-size: 0.75rem;
+      font-weight: 700;
+      opacity: 0.75;
+    }
+    .msg-time {
+      font-size: 0.7rem;
+      align-self: flex-end;
+      opacity: 0.65;
+    }
+
+    /* Input Bar */
+    .chat-input-row {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      gap: 12px;
+    }
+    .chat-input {
+      flex: 1;
+      padding: 12px 18px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      outline: none;
+      font-size: 0.95rem;
+    }
+    .chat-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    /* Modal for New Commission */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    .modal-box {
+      background: white;
+      padding: 28px;
+      border-radius: var(--radius);
+      width: 480px;
+      max-width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/index.html" class="brand">
+        🎨 ArtEX
+        <span class="brand-badge">Kazakhstan</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/index.html">🖼️ Галерея</a></li>
+          <li><a href="/pages/users.html">👥 Художники</a></li>
+          <li><a href="/pages/chats.html" class="active">🛡️ Сделки и Чаты</a></li>
+          <li><a href="/pages/profile.html?id=u_mikudasu">👤 Мой Профиль</a></li>
+        </ul>
+      </nav>
+      <div class="user-pill">
+        <span class="user-dot"></span>
+        <span>Mikudasu (Artist)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding-top: 18px;">
+    <div class="chats-layout">
+      
+      <!-- Left Sidebar: Deals -->
+      <aside class="chats-sidebar">
+        <div class="sidebar-header">
+          <strong style="font-size: 0.95rem;">Активные комиссии</strong>
+          <button class="btn btn-sm" onclick="openNewModal()">+ Заказать</button>
+        </div>
+        <ul id="deals-list" class="deals-list">
+          <!-- Loaded dynamically -->
+          <li style="padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
+            Загрузка сделок...
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Right Main Chat & Contract Pane -->
+      <section class="chat-pane">
+        <!-- Header -->
+        <div class="contract-header">
+          <div class="contract-top">
+            <div>
+              <h2 id="c-title" class="contract-title">Выберите сделку слева</h2>
+              <div id="c-parties" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 3px;">
+                Участники сделки
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <div id="c-price" style="font-size: 1.3rem; font-weight: 800; color: var(--primary);">45,000 ₸</div>
+              <span id="c-status-badge" class="badge badge-held">Оплата заморожена 🛡️</span>
+            </div>
+          </div>
+
+          <!-- Escrow Stepper -->
+          <div class="stepper" id="escrow-stepper">
+            <div class="step-node completed" data-step="requested">
+              <div class="step-circle">1</div>
+              <span class="step-label">Заявка</span>
+            </div>
+            <div class="step-node completed" data-step="payment_held">
+              <div class="step-circle">2</div>
+              <span class="step-label">Депозит Escrow</span>
+            </div>
+            <div class="step-node active" data-step="in_progress">
+              <div class="step-circle">3</div>
+              <span class="step-label">В работе</span>
+            </div>
+            <div class="step-node" data-step="delivered">
+              <div class="step-circle">4</div>
+              <span class="step-label">Сдача работы</span>
+            </div>
+            <div class="step-node" data-step="completed">
+              <div class="step-circle">5</div>
+              <span class="step-label">Выплата</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testing Actions Bar for Escrow Transitions -->
+        <div class="actions-bar" id="actions-bar">
+          <span class="actions-label">Действия валидатора:</span>
+          <button class="btn btn-sm btn-secondary" onclick="updateDealStatus('payment_held')">🔒 Заморозить в Escrow</button>
+          <button class="btn btn-sm btn-secondary" onclick="updateDealStatus('in_progress')">🎨 Начать работу</button>
+          <button class="btn btn-sm btn-secondary" onclick="updateDealStatus('delivered')">📤 Сдать результат</button>
+          <button class="btn btn-sm btn-success" onclick="updateDealStatus('completed')">🎉 Подтвердить & Выплатить</button>
+          <button class="btn btn-sm" style="background: #e74c3c;" onclick="updateDealStatus('disputed')">⚠️ Спор</button>
+        </div>
+
+        <!-- Messages Stream -->
+        <div class="messages-stream" id="messages-stream">
+          <!-- Loaded dynamically -->
+        </div>
+
+        <!-- Input Bar -->
+        <div class="chat-input-row">
+          <input type="text" id="chat-msg-input" class="chat-input" placeholder="Напишите сообщение о деталях заказа..." onkeydown="if(event.key === 'Enter') sendMsg()">
+          <button class="btn" onclick="sendMsg()">Отправить ➔</button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Modal: New Commission Request -->
+  <div class="modal-overlay" id="modal-new">
+    <div class="modal-box">
+      <h3 style="margin-bottom: 16px;">🛡️ Новая безопасная сделка ArtEX</h3>
+      <div class="form-group">
+        <label>Художник</label>
+        <select id="modal-artist" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+          <option value="u_mikudasu">Mikudasu (Алматы)</option>
+          <option value="u_daniyal">DaniyalArt (Астана)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Название / Тема заказа</label>
+        <input type="text" id="modal-title" placeholder="например, Аниме арт персонажа для соцсетей">
+      </div>
+      <div class="form-group">
+        <label>Бюджет сделки (KZT)</label>
+        <input type="number" id="modal-price" value="35000">
+      </div>
+      <div class="form-group">
+        <label>Срок выполнения</label>
+        <input type="text" id="modal-deadline" value="7 дней">
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+        <button class="btn btn-secondary" onclick="closeNewModal()">Отмена</button>
+        <button class="btn" onclick="createCommissionOrder()">Создать заказ</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>ArtEX Kazakhstan — Safe Artist-Client Commission Exchange • Дипломный проект</p>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script>
+    let commissions = [];
+    let currentCommission = null;
+    let currentChat = null;
+
+    async function init() {
+      await loadCommissions();
+    }
+
+    async function loadCommissions() {
+      try {
+        commissions = await ArtEX_API.commissions.getAll();
+        renderDealsList(commissions);
+        if (commissions.length > 0) {
+          selectCommission(commissions[0].id);
+        }
+      } catch (err) {
+        console.error('Error loading commissions:', err);
+      }
+    }
+
+    function renderDealsList(list) {
+      const container = document.getElementById('deals-list');
+      container.innerHTML = list.map(c => `
+        <li class="deal-item ${currentCommission && currentCommission.id === c.id ? 'active' : ''}" onclick="selectCommission('${c.id}')">
+          <div class="deal-item-header">
+            <span class="deal-item-title">${c.title}</span>
+            <span class="deal-item-price">${Number(c.price).toLocaleString()} ₸</span>
+          </div>
+          <div class="deal-item-participants">Художник: @${c.artistName} • Заказчик: @${c.clientName}</div>
+          <div><span class="badge ${getBadgeClass(c.status)}">${formatStatus(c.status)}</span></div>
+        </li>
+      `).join('');
+    }
+
+    async function selectCommission(commId) {
+      currentCommission = commissions.find(c => c.id === commId) || await ArtEX_API.commissions.getById(commId);
+      
+      document.querySelectorAll('.deal-item').forEach(el => el.classList.remove('active'));
+      renderDealsList(commissions);
+
+      // Fill header
+      document.getElementById('c-title').innerText = currentCommission.title;
+      document.getElementById('c-parties').innerText = `Художник: @${currentCommission.artistName}  |  Заказчик: @${currentCommission.clientName}  |  Срок: ${currentCommission.deadline || 'Договорной'}`;
+      document.getElementById('c-price').innerText = `${Number(currentCommission.price).toLocaleString()} ₸`;
+      
+      const badge = document.getElementById('c-status-badge');
+      badge.className = `badge ${getBadgeClass(currentCommission.status)}`;
+      badge.innerText = formatStatus(currentCommission.status);
+
+      updateStepper(currentCommission.status);
+      loadChatForCommission(currentCommission.id);
+    }
+
+    function updateStepper(status) {
+      const steps = ['requested', 'payment_held', 'in_progress', 'delivered', 'completed'];
+      const currentIdx = steps.indexOf(status);
+
+      document.querySelectorAll('.step-node').forEach((node) => {
+        const stepName = node.dataset.step;
+        const nodeIdx = steps.indexOf(stepName);
+
+        node.classList.remove('completed', 'active');
+        if (nodeIdx < currentIdx || (status === 'completed' && nodeIdx <= currentIdx)) {
+          node.classList.add('completed');
+        } else if (nodeIdx === currentIdx) {
+          node.classList.add('active');
+        }
+      });
+    }
+
+    async function loadChatForCommission(commId) {
+      const chatId = `chat_${commId}`;
+      try {
+        let chat = await ArtEX_API.chats.getById(chatId);
+        renderMessages(chat.messages || []);
+      } catch (err) {
+        // Fallback demo chat if not found
+        renderMessages([
+          { senderId: 'system', senderName: 'ArtEX Validator', text: '🛡️ Сделка инициирована. Депозит находится под защитой платформы.' }
+        ]);
+      }
+    }
+
+    function renderMessages(messages) {
+      const container = document.getElementById('messages-stream');
+      container.innerHTML = messages.map(m => {
+        if (m.senderId === 'system') {
+          return `<div class="msg msg-system">${m.text}</div>`;
+        }
+        const isMe = m.senderId === 'u_mikudasu';
+        return `
+          <div class="msg ${isMe ? 'msg-artist' : 'msg-client'}">
+            <span class="msg-author">${m.senderName}</span>
+            <span>${m.text}</span>
+            <span class="msg-time">${m.timestamp ? new Date(m.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : ''}</span>
+          </div>
+        `;
+      }).join('');
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function sendMsg() {
+      const input = document.getElementById('chat-msg-input');
+      const text = input.value.trim();
+      if (!text || !currentCommission) return;
+
+      const chatId = `chat_${currentCommission.id}`;
+      try {
+        await ArtEX_API.chats.sendMessage(chatId, {
+          senderId: 'u_mikudasu',
+          senderName: 'Mikudasu',
+          text
+        });
+        input.value = '';
+        loadChatForCommission(currentCommission.id);
+      } catch (err) {
+        console.error('Error sending message:', err);
+      }
+    }
+
+    async function updateDealStatus(newStatus) {
+      if (!currentCommission) return;
+      try {
+        const updated = await ArtEX_API.commissions.updateStatus(currentCommission.id, newStatus, `Статус обновлен в панели валидатора: ${newStatus}`);
+        currentCommission = updated;
+        const idx = commissions.findIndex(c => c.id === updated.id);
+        if (idx !== -1) commissions[idx] = updated;
+
+        selectCommission(currentCommission.id);
+      } catch (err) {
+        alert('Ошибка смены статуса: ' + err.message);
+      }
+    }
+
+    function getBadgeClass(status) {
+      switch(status) {
+        case 'requested': return 'badge-held';
+        case 'payment_held': return 'badge-held';
+        case 'in_progress': return 'badge-progress';
+        case 'delivered': return 'badge-progress';
+        case 'completed': return 'badge-completed';
+        case 'disputed': return 'badge-disputed';
+        default: return 'badge-open';
+      }
+    }
+
+    function formatStatus(status) {
+      switch(status) {
+        case 'requested': return 'Заявка отправлена';
+        case 'payment_held': return '🔒 Депозит в Escrow';
+        case 'in_progress': return '🎨 В работе';
+        case 'delivered': return '📤 Сдано на проверку';
+        case 'completed': return '🎉 Завершено & Выплачено';
+        case 'disputed': return '⚠️ В споре';
+        default: return status;
+      }
+    }
+
+    function openNewModal() {
+      document.getElementById('modal-new').style.display = 'flex';
+    }
+    function closeNewModal() {
+      document.getElementById('modal-new').style.display = 'none';
+    }
+
+    async function createCommissionOrder() {
+      const artistId = document.getElementById('modal-artist').value;
+      const title = document.getElementById('modal-title').value.trim();
+      const price = document.getElementById('modal-price').value;
+      const deadline = document.getElementById('modal-deadline').value;
+
+      if (!title) {
+        alert('Пожалуйста, введите название заказа');
+        return;
+      }
+
+      try {
+        const newOrder = await ArtEX_API.commissions.create({
+          title,
+          artistId,
+          clientId: 'u_bakdaulet',
+          price: Number(price),
+          deadline
+        });
+        closeNewModal();
+        await loadCommissions();
+        selectCommission(newOrder.id);
+      } catch (err) {
+        alert('Ошибка создания заказа: ' + err.message);
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

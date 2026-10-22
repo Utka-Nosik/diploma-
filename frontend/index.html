@@ -1,36 +1,287 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>ArtEX - Web Version</title>
-    <style>
-        /* Временные стили прямо здесь */
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; text-align: center; }
-        .profile-card { background: white; padding: 20px; border-radius: 10px; max-width: 300px; margin: 50px auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .btn { background-color: #6c5ce7; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtEX — Безопасная платформа для художников и заказчиков</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    /* Specific styles for Gallery index */
+    .art-card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: #e2e8f0;
+    }
+    .art-card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .art-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+    .art-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .art-artist {
+      font-size: 0.85rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .art-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 12px;
+      flex: 1;
+    }
+    .art-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 12px;
+    }
+    .art-tag {
+      background: var(--bg);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .art-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      margin-top: auto;
+    }
+    .art-price {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .art-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .like-btn {
+      background: none;
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.85rem;
+      transition: var(--transition);
+    }
+    .like-btn:hover {
+      background: #ffeaa7;
+      border-color: #fdcb6e;
+    }
+    /* Original test card container */
+    .legacy-test-box {
+      margin-top: 40px;
+      background: white;
+      border: 1px dashed var(--primary);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <div class="profile-card">
-        <h2 id="username">Загрузка...</h2>
-        <p id="email">Подождите...</p>
-        <button class="btn" onclick="loadUserData()">Загрузить profile</button>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/index.html" class="brand">
+        🎨 ArtEX
+        <span class="brand-badge">Kazakhstan</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/index.html" class="active">🖼️ Галерея</a></li>
+          <li><a href="/pages/users.html">👥 Художники</a></li>
+          <li><a href="/pages/chats.html">🛡️ Сделки и Чаты</a></li>
+          <li><a href="/pages/profile.html?id=u_mikudasu">👤 Мой Профиль</a></li>
+        </ul>
+      </nav>
+      <div class="user-pill">
+        <span class="user-dot"></span>
+        <span id="nav-user">Mikudasu (Artist)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Hero Banner -->
+    <section class="hero">
+      <div class="hero-text">
+        <div class="hero-badge">🛡️ ArtEX Safe Commission Validator</div>
+        <h1>Платформа честных сделок для художников</h1>
+        <p>Выставляйте свои работы, принимайте заказы и будьте уверены в честной оплате. Система автоматически удерживает депозит в Escrow до финального утверждения работы клиентом.</p>
+      </div>
+      <div>
+        <a href="/pages/chats.html" class="btn" style="background: white; color: var(--primary);">
+          Открыть активные сделки →
+        </a>
+      </div>
+    </section>
+
+    <!-- Filters & Search -->
+    <div class="filter-bar">
+      <div class="filter-pills" id="category-pills">
+        <button class="filter-pill active" onclick="filterCategory('')">Все работы</button>
+        <button class="filter-pill" onclick="filterCategory('Digital Illustration')">Digital Illustration</button>
+        <button class="filter-pill" onclick="filterCategory('Character Design')">Character Design</button>
+        <button class="filter-pill" onclick="filterCategory('Environment')">Environment</button>
+      </div>
+      <input type="text" id="search-input" class="search-input" placeholder="🔍 Поиск арта или тега..." oninput="searchArtworks(this.value)">
     </div>
 
-    <script>
-        // Временная логика фронтенда прямо здесь
-        async function loadUserData() {
-            try {
-                // Запрос к нашему единственному файлу бэкенда
-                const response = await fetch('http://localhost:3000/api/user/mikudasu');
-                const data = await response.json();
-                
-                document.getElementById('username').innerText = data.username;
-                document.getElementById('email').innerText = data.email;
-            } catch (error) {
-                console.error("Ошибка связи с сервером", error);
-            }
-        }
-    </script>
+    <!-- Artworks Grid -->
+    <div id="artworks-grid" class="cards-grid">
+      <!-- Artworks dynamically loaded via API -->
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">
+        Загрузка галереи ArtEX...
+      </div>
+    </div>
+
+    <!-- Quick Profile Card (Original Feature Preserved) -->
+    <div class="legacy-test-box">
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">Быстрый тест профиля (оригинальный виджет):</p>
+      <h3 id="username" style="margin-bottom: 4px;">Mikudasu</h3>
+      <p id="email" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px;">dararan41@gmail.com</p>
+      <button class="btn btn-secondary btn-sm" onclick="loadUserData()">🔄 Перезагрузить данные из /api/user/mikudasu</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>ArtEX Kazakhstan — Safe Artist-Client Commission Exchange • Дипломный проект</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/api.js"></script>
+  <script>
+    let allArtworks = [];
+    let currentCategory = '';
+
+    // Load artworks on startup
+    async function loadArtworks() {
+      try {
+        allArtworks = await ArtEX_API.artworks.getAll();
+        renderArtworks(allArtworks);
+      } catch (err) {
+        document.getElementById('artworks-grid').innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; color: var(--danger); padding: 30px;">
+            Ошибка загрузки галереи. Убедитесь, что сервер запущен (npm start).
+          </div>
+        `;
+      }
+    }
+
+    function renderArtworks(list) {
+      const container = document.getElementById('artworks-grid');
+      if (list.length === 0) {
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">Работы не найдены</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(art => `
+        <div class="card">
+          <img src="${art.imageUrl}" alt="${art.title}" class="art-card-img" onerror="this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80'">
+          <div class="art-card-body">
+            <div class="art-header">
+              <span class="art-title">${art.title}</span>
+              <span class="badge badge-held">${art.category}</span>
+            </div>
+            <a href="/pages/profile.html?id=${art.artistId}" class="art-artist">@${art.artistName}</a>
+            <p class="art-desc">${art.description || 'Оригинальная работа художника.'}</p>
+            <div class="art-tags">
+              ${(art.tags || []).map(t => `<span class="art-tag">#${t}</span>`).join('')}
+            </div>
+            <div class="art-footer">
+              <span class="art-price">${Number(art.price).toLocaleString()} ₸</span>
+              <div class="art-actions">
+                <button class="like-btn" onclick="likeArt('${art.id}', this)">
+                  ❤️ <span>${art.likesCount || 0}</span>
+                </button>
+                <a href="/pages/chats.html?artistId=${art.artistId}" class="btn btn-sm">Заказать</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterCategory(cat) {
+      currentCategory = cat;
+      const pills = document.querySelectorAll('.filter-pill');
+      pills.forEach(p => {
+        p.classList.toggle('active', (cat === '' && p.innerText === 'Все работы') || p.innerText === cat);
+      });
+      applyFilters();
+    }
+
+    function searchArtworks(query) {
+      applyFilters(query);
+    }
+
+    function applyFilters(searchQuery = document.getElementById('search-input').value) {
+      let filtered = allArtworks;
+      if (currentCategory) {
+        filtered = filtered.filter(a => a.category.toLowerCase() === currentCategory.toLowerCase());
+      }
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(a => 
+          a.title.toLowerCase().includes(q) || 
+          a.artistName.toLowerCase().includes(q) ||
+          (a.tags && a.tags.some(t => t.toLowerCase().includes(q)))
+        );
+      }
+      renderArtworks(filtered);
+    }
+
+    async function likeArt(artId, btn) {
+      try {
+        const res = await ArtEX_API.artworks.like(artId);
+        const span = btn.querySelector('span');
+        if (span) span.innerText = res.likesCount;
+        btn.style.transform = 'scale(1.15)';
+        setTimeout(() => btn.style.transform = 'scale(1)', 150);
+      } catch (err) {
+        console.error('Like error:', err);
+      }
+    }
+
+    // Original legacy helper
+    async function loadUserData() {
+      try {
+        const response = await fetch('/api/user/mikudasu');
+        const data = await response.json();
+        document.getElementById('username').innerText = data.username;
+        document.getElementById('email').innerText = data.email;
+      } catch (error) {
+        console.error("Ошибка связи с сервером", error);
+      }
+    }
+
+    // Startup
+    loadArtworks();
+  </script>
 </body>
 </html>
