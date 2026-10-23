@@ -56,11 +56,12 @@ The current project is a working prototype with a gallery, artist directory and 
 
 ## Screenshots
 
-![ArtEX gallery screenshot placeholder](docs/images/gallery.png)
+![ArtEX gallery screenshot placeholder](https://github.com/Utka-Nosik/diploma-/blob/main/frontend/assets/preview/photo_1_2026-10-23_16-46-45.jpg?raw=true)
+![ArtEX gallery screenshot placeholder](https://github.com/Utka-Nosik/diploma-/blob/main/frontend/assets/preview/photo_2_2026-10-23_16-46-45.jpg?raw=true)
+![ArtEX gallery screenshot placeholder](https://github.com/Utka-Nosik/diploma-/blob/main/frontend/assets/preview/photo_3_2026-10-23_16-46-45.jpg?raw=true)
+![ArtEX gallery screenshot placeholder](https://github.com/Utka-Nosik/diploma-/blob/main/frontend/assets/preview/photo_4_2026-10-23_16-46-45.jpg?raw=true)
+![ArtEX gallery screenshot placeholder](https://github.com/Utka-Nosik/diploma-/blob/main/frontend/assets/preview/photo_5_2026-10-23_16-46-45.jpg?raw=true)
 
-![Artist profile screenshot placeholder](docs/images/profile.png)
-
-![Commissions and chats screenshot placeholder](docs/images/commissions-and-chats.png)
 
 ## Getting started
 
