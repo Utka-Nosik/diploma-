@@ -40,16 +40,19 @@ The current project is a working prototype with a gallery, artist directory and 
 
 ### Team
 
-| Member | Responsibility |
+
+| Team Members| Responsobilities |
+| --- | --- |
 | Abrayev Daniyal | Frontend Dev |
 | Abdikul Bakdaulet | Backend Dev |
+
 
 **Supervisor:** Botagoz Mirzagalikova
 
 ### Project links
 
-- **YouTrack project:** [Add YouTrack project URL](https://artex.youtrack.cloud/projects/AWS)
-- **Project documentation:** [Add project documentation URL](https://docs.google.com/document/d/1T23-jNKXgyj6EZ1w5x4RADl2IdUHlHtGefdcC9VqiD8/edit?usp=sharing)
+- **YouTrack project:** [YouTrack](https://artex.youtrack.cloud/projects/AWS)
+- **Project documentation:** [Documentation](https://docs.google.com/document/d/1T23-jNKXgyj6EZ1w5x4RADl2IdUHlHtGefdcC9VqiD8/edit?usp=sharing)
 
 ## Screenshots
 
