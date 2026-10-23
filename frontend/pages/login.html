@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход в систему — ArtEX</title>
+  <!-- Подключаем глобальные стили и стили авторизации -->
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+
+  <main class="login-layout">
+    <!-- Левая колонка с изображением (замените url картинки при необходимости) -->
+    <section class="login-banner">
+      <div class="login-banner-content">
+        <h2>Art-EX</h2>
+        <p>Творческая плафторма.</p>
+      </div>
+    </section>
+
+    <!-- Правая колонка с формой входа -->
+    <section class="login-content">
+      <div class="login-wrapper">
+
+        <!-- Логотип организации -->
+        <a href="#" class="login-logo">
+          <!-- Стилизованная иконка-логотип (в стиле AITU) -->
+          <div class="login-logo-text">
+            <span class="login-logo-title">ArtEX</span>
+            <span class="login-logo-sub">company</span>
+          </div>
+        </a>
+
+        <!-- Приветствие -->
+        <div class="login-header">
+          <h1>С возвращением</h1>
+          <p>Зайти в свой профиль</p>
+        </div>
+
+        <!-- Форма -->
+        <form action="/login" method="POST">
+          <div class="form-group">
+            <label for="username">Логин</label>
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              class="form-input" 
+              placeholder="Введите логин" 
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password">Пароль</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Введите свой пароль" 
+              required
+            >
+          </div>
+
+          <div class="form-options">
+            <a href="../index.html" class="forgot-link">Забыли пароль?</a>
+          </div>
+
+          <button type="submit" class="btn btn-login">
+            Вход
+          </button>
+        </form>
+
+        <!-- Разделитель -->
+        <div class="divider">
+          <span>или</span>
+        </div>
+
+      </div>
+
+      <!-- Нижний блок: язык и cookies -->
+      <footer class="login-footer">
+        <label>
+          <select class="lang-select">
+            <option value="ru" selected>Русский (ru) ▾</option>
+            <option value="kk">Қазақша (kk)</option>
+            <option value="en">English (en)</option>
+          </select>
+        </label>
+        <span>Уведомление о файлах cookie</span>
+      </footer>
+
+      <!-- Круглая кнопка справки "?" в правом нижнем углу -->
+      <a href="#" class="help-btn" title="Помощь">?</a>
+    </section>
+  </main>
+
+</body>
+</html>

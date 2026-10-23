@@ -50,6 +50,11 @@ app.get('/api/user/:id', (req, res) => {
   }
 });
 
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'login.html'));
+});
+
+
 // Modular API Routers
 app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);

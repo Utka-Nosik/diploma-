@@ -88,7 +88,7 @@
       "imageUrl": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80",
       "price": 65000,
       "currency": "KZT",
-      "likesCount": 142,
+      "likesCount": 143,
       "createdAt": "2026-10-14T12:00:00Z"
     },
     {
@@ -107,7 +107,7 @@
       "imageUrl": "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80",
       "price": 50000,
       "currency": "KZT",
-      "likesCount": 98,
+      "likesCount": 99,
       "createdAt": "2026-10-18T15:30:00Z"
     },
     {
@@ -132,6 +132,55 @@
   ],
   "commissions": [
     {
+      "id": "comm_1792689498687",
+      "status": "completed",
+      "createdAt": "2026-10-22T17:18:18.687Z",
+      "escrowValidator": {
+        "isHeld": false,
+        "heldAmount": 5000,
+        "platformFee": 250,
+        "heldAt": "2026-10-22T17:18:30.216Z",
+        "releasedAt": "2026-10-22T17:20:37.351Z",
+        "validationNote": "Funds released to artist upon verified client approval."
+      },
+      "timeline": [
+        {
+          "status": "requested",
+          "timestamp": "2026-10-22T17:18:18.687Z",
+          "note": "Commission request submitted."
+        },
+        {
+          "status": "payment_held",
+          "timestamp": "2026-10-22T17:18:30.216Z",
+          "note": "Статус обновлен в панели валидатора: payment_held"
+        },
+        {
+          "status": "in_progress",
+          "timestamp": "2026-10-22T17:18:36.015Z",
+          "note": "Статус обновлен в панели валидатора: in_progress"
+        },
+        {
+          "status": "delivered",
+          "timestamp": "2026-10-22T17:20:35.319Z",
+          "note": "Статус обновлен в панели валидатора: delivered"
+        },
+        {
+          "status": "completed",
+          "timestamp": "2026-10-22T17:20:37.351Z",
+          "note": "Статус обновлен в панели валидатора: completed"
+        }
+      ],
+      "title": "Я хочу вкусно и точка",
+      "description": "",
+      "artistId": "u_daniyal",
+      "artistName": "DaniyalArt",
+      "clientId": "u_bakdaulet",
+      "clientName": "Bakdaulet_Client",
+      "price": 5000,
+      "currency": "KZT",
+      "deadline": "30 дней"
+    },
+    {
       "id": "comm_101",
       "title": "Custom Twitch Mascot & 3 Emotes",
       "description": "Design a snow leopard mascot character with 3 matching reaction emotes for stream.",
@@ -147,7 +196,7 @@
         "heldAmount": 45000,
         "platformFee": 2250,
         "heldAt": "2026-10-22T17:08:47.821Z",
-        "releasedAt": "2026-10-22T17:08:50.979Z",
+        "releasedAt": "2026-10-22T17:17:23.289Z",
         "validationNote": "Funds released to artist upon verified client approval."
       },
       "deadline": "2026-11-05",
@@ -231,6 +280,26 @@
         {
           "status": "completed",
           "timestamp": "2026-10-22T17:08:50.979Z",
+          "note": "Статус обновлен в панели валидатора: completed"
+        },
+        {
+          "status": "disputed",
+          "timestamp": "2026-10-22T17:16:55.290Z",
+          "note": "Статус обновлен в панели валидатора: disputed"
+        },
+        {
+          "status": "disputed",
+          "timestamp": "2026-10-22T17:16:56.144Z",
+          "note": "Статус обновлен в панели валидатора: disputed"
+        },
+        {
+          "status": "disputed",
+          "timestamp": "2026-10-22T17:16:56.959Z",
+          "note": "Статус обновлен в панели валидатора: disputed"
+        },
+        {
+          "status": "completed",
+          "timestamp": "2026-10-22T17:17:23.289Z",
           "note": "Статус обновлен в панели валидатора: completed"
         }
       ]
@@ -347,6 +416,84 @@
         {
           "id": "msg_1792688930980",
           "timestamp": "2026-10-22T17:08:50.980Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "🎉 Client confirmed delivery! Funds released to the artist. Deal completed safely."
+        },
+        {
+          "id": "msg_1792689415290",
+          "timestamp": "2026-10-22T17:16:55.290Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "⚠️ Dispute raised. An ArtEX moderator has been alerted to review files and chat log."
+        },
+        {
+          "id": "msg_1792689416145",
+          "timestamp": "2026-10-22T17:16:56.145Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "⚠️ Dispute raised. An ArtEX moderator has been alerted to review files and chat log."
+        },
+        {
+          "id": "msg_1792689416960",
+          "timestamp": "2026-10-22T17:16:56.960Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "⚠️ Dispute raised. An ArtEX moderator has been alerted to review files and chat log."
+        },
+        {
+          "id": "msg_1792689430325",
+          "timestamp": "2026-10-22T17:17:10.325Z",
+          "senderId": "u_mikudasu",
+          "senderName": "Mikudasu",
+          "text": "Когда будут результаты?"
+        },
+        {
+          "id": "msg_1792689443289",
+          "timestamp": "2026-10-22T17:17:23.289Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "🎉 Client confirmed delivery! Funds released to the artist. Deal completed safely."
+        }
+      ]
+    },
+    {
+      "id": "chat_comm_1792689498687",
+      "participants": [
+        "system"
+      ],
+      "messages": [
+        {
+          "id": "msg_1792689498691",
+          "timestamp": "2026-10-22T17:18:18.691Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "🛡️ New commission deal initiated: \"Я хочу вкусно и точка\" for 5 000 KZT. Awaiting artist acceptance."
+        },
+        {
+          "id": "msg_1792689510216",
+          "timestamp": "2026-10-22T17:18:30.216Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "🛡️ Payment secured in ArtEX Escrow Validator! Funds are safe; artist can start working."
+        },
+        {
+          "id": "msg_1792689516016",
+          "timestamp": "2026-10-22T17:18:36.016Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "Artist marked status as 'In Progress'."
+        },
+        {
+          "id": "msg_1792689635320",
+          "timestamp": "2026-10-22T17:20:35.320Z",
+          "senderId": "system",
+          "senderName": "ArtEX Validator",
+          "text": "Artist submitted work for client review."
+        },
+        {
+          "id": "msg_1792689637351",
+          "timestamp": "2026-10-22T17:20:37.351Z",
           "senderId": "system",
           "senderName": "ArtEX Validator",
           "text": "🎉 Client confirmed delivery! Funds released to the artist. Deal completed safely."

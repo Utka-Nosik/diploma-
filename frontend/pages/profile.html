@@ -146,6 +146,12 @@
       margin-bottom: 20px;
       line-height: 1.5;
     }
+
+    .user-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -165,10 +171,12 @@
           <li><a href="/pages/profile.html?id=u_mikudasu" class="active">👤 Мой Профиль</a></li>
         </ul>
       </nav>
-      <div class="user-pill">
-        <span class="user-dot"></span>
-        <span id="nav-username">Mikudasu (Artist)</span>
-      </div>
+      <a href="/pages/login.html" class="user-link">
+        <div class="user-pill">
+          <span class="user-dot"></span>
+          <span id="nav-username">Log Out</span>
+        </div>
+      </a>
     </div>
   </header>
 

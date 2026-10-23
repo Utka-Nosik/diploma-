@@ -1,0 +1,280 @@
+/* =========================================
+   Login Page Specific Styles (ArtEX Theme)
+   ========================================= */
+
+.login-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--surface);
+}
+
+/* Левая половина: баннер / изображение */
+.login-banner {
+  flex: 1.1;
+  position: relative;
+  background: url("https://images.unsplash.com/photo-1777971911576-de6d56a93681?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D") center/cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+}
+
+/* Затемняющий/брендовый градиент поверх изображения */
+.login-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(108, 92, 231, 0.2) 0%, rgba(20, 20, 30, 0.6) 100%);
+}
+
+.login-banner-content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  max-width: 480px;
+}
+
+.login-banner-content h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.login-banner-content p {
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+/* Правая половина: форма */
+.login-content {
+  flex: 0.9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 60px;
+  overflow-y: auto;
+  position: relative;
+  min-width: 420px;
+}
+
+.login-wrapper {
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+}
+
+/* Логотип */
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 36px;
+  text-decoration: none;
+}
+
+.login-logo svg {
+  width: 52px;
+  height: 52px;
+}
+
+.login-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-logo-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+.login-logo-sub {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Заголовок формы */
+.login-header {
+  margin-bottom: 24px;
+}
+
+.login-header h1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.login-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Поля ввода */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: #fafbfc;
+  color: var(--text-main);
+  transition: var(--transition);
+}
+
+.form-input:focus {
+  background-color: var(--surface);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.form-options {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.forgot-link {
+  font-size: 0.88rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+  color: var(--primary-hover);
+}
+
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+/* Разделитель "ИЛИ" */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 24px 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--border);
+}
+
+.divider span {
+  padding: 0 12px;
+  text-transform: uppercase;
+}
+
+/* OpenID / SSO кнопка */
+.btn-sso {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--surface);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-sso:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.btn-sso svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Нижняя панель формы */
+.login-footer {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.lang-select {
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+.help-btn {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 34px;
+  height: 34px;
+  background: #e2e8f0;
+  color: var(--text-muted);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.help-btn:hover {
+  background: #cbd5e1;
+  color: var(--text-main);
+}
+
+/* Адаптив под мобильные устройства */
+@media (max-width: 900px) {
+  .login-banner {
+    display: none;
+  }
+  .login-content {
+    flex: 1;
+    padding: 32px 20px;
+    min-width: 100%;
+  }
+}
